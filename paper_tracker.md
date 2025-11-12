@@ -1,7 +1,7 @@
 # Paper Review Tracker
 
 **Goal:** Review 500+ papers on robotics manipulation, world models, diffusion policies
-**Current Count:** 236 / 500 (47.2%)
+**Current Count:** 286 / 500 (57.2%)
 **Last Updated:** 2025-11-12
 
 ---
@@ -48,10 +48,11 @@
 **File:** paper_summaries/batch_007_2023_papers_jun_aug.md
 **Papers:** 50
 
-### Batch 008: NeurIPS 2024 Robotics (Papers 301-370)
-**Source:** NeurIPS proceedings (filtered for robotics)
-**Status:** ⏳ PENDING
-**Target:** ~70 papers
+### Batch 008: 2022-2023 Papers (Papers 237-286)
+**Source:** arXiv Dec 2022 - May 2023
+**Status:** ✅ COMPLETE
+**File:** paper_summaries/batch_008_2022_2023_jan_may.md
+**Papers:** 50
 
 ### Batch 006: NeurIPS 2023-2024 Robotics (Papers 301-370)
 **Source:** NeurIPS proceedings (filtered for robotics)
