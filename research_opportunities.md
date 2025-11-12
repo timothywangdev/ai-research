@@ -1,7 +1,7 @@
 # Research Opportunities & Gaps Tracker
 
 **Purpose:** Track ALL research gaps and novel opportunities discovered during comprehensive paper review
-**Papers Reviewed:** 68 / 500+
+**Papers Reviewed:** 161 / 500+
 **Last Updated:** 2025-11-12
 
 ---
@@ -11,21 +11,36 @@
 ### Gap Identified:
 ChainedDiffuser and hierarchical diffusion policies execute open-loop between waypoints, failing in dynamic environments.
 
+### ⚠️ CRITICAL UPDATE (After 161 papers):
+**Subgoal Diffuser (March 2024)** is VERY similar to HiLoop concept!
+- Uses diffusion to generate subgoals → MPC follows with closed-loop control
+- Dynamic subgoal density based on reachability
+- MPC handles disturbances
+
+**Key Differences HiLoop Must Emphasize:**
+1. **World Model vs MPC:** Learning-based (generalizes, data-efficient) vs optimization-based (needs accurate model, brittle)
+2. **Dynamic Refinement vs Static Generation:** Online waypoint refinement (adapts waypoints themselves based on error) vs static subgoal generation with density adjustment (pre-determined allocation)
+3. **Error-Driven Replanning:** World model predicts future states, triggers replanning based on prediction error vs MPC reactively corrects deviations
+4. **Manipulation Focus:** Long-horizon manipulation with object interactions vs general trajectory following
+
 ### Supporting Evidence:
 - ChainedDiffuser (CoRL 2023): "operates open-loop between keyframes, struggles to adapt to dynamic environments"
 - Control frequency only 5.1 Hz
 - Fails on CALVIN benchmark with multimodal demos
 - Workshop emphasis on dynamic adaptation (CoRL 2024)
+- **Subgoal Diffuser (March 2024):** Uses MPC for closed-loop but requires accurate model, static subgoal sequence
+- **Hierarchical Diffuser (Jan 2024):** Two-level hierarchical diffusion but offline RL, no online adaptation
+- **DISCO (June 2024):** VLM keyframes + diffusion but "strictly enforcing keyframes can degrade performance"
 
 ### Proposed Solution:
-Two-level closed-loop: diffusion generates waypoints, world model monitors error, triggers online refinement when threshold exceeded.
+Two-level closed-loop: diffusion generates waypoints, **learned world model** monitors execution and predicts future states, triggers **online waypoint refinement** (not just MPC correction) when prediction error exceeds threshold.
 
-### Novelty Score: 8/10
+### Novelty Score: 7/10 (reduced due to Subgoal Diffuser)
 ### Feasibility: 8/10
 ### Impact: 9/10
-### Overall: 25/30
+### Overall: 24/30
 
-### Status: PRIMARY CANDIDATE
+### Status: PRIMARY CANDIDATE BUT NEEDS STRONG DIFFERENTIATION FROM SUBGOAL DIFFUSER
 
 ---
 
@@ -252,7 +267,23 @@ Extend provable guarantees framework to hierarchical setting:
 
 ---
 
-## EMERGING THEMES (Across 68 Papers):
+## NEW OPPORTUNITIES FROM BATCH 005 (Papers 136-161):
+
+### Opportunity #17: Denoising-Based World Models for Manipulation
+**Inspired by:** DWL (RSS 2024 Best Paper Finalist)
+**Gap:** DWL shows denoising world models excel for humanoid locomotion, but not explored for manipulation
+**Proposed:** Denoising world model for robust object interaction prediction
+**Novelty:** 7/10, Feasibility: 8/10, Impact: 8/10, Total: 23/30
+
+### Opportunity #18: Language-Conditioned Hierarchical Diffusion with Online Adaptation
+**Inspired by:** RT-H (RSS 2024), DISCO (June 2024)
+**Gap:** RT-H uses language motions effectively but no online adaptation; DISCO has keyframe enforcement issues
+**Proposed:** Language-guided waypoint generation + online refinement when language-motion predictions fail
+**Novelty:** 7/10, Feasibility: 7/10, Impact: 8/10, Total: 22/30
+
+---
+
+## EMERGING THEMES (Across 161 Papers):
 
 ### Theme 1: Computational Efficiency
 **Papers:** OneDP, Consistency Policy, Flow Matching, D-MPC
@@ -275,35 +306,50 @@ Extend provable guarantees framework to hierarchical setting:
 **Opportunity:** Unified framework for sim-to-real
 
 ### Theme 5: Language Integration
-**Papers:** CALVIN, PlayFusion, Diffusion-VLA, RoboHorizon
-**Gap:** Grounding language to actions
-**Opportunity:** Better language-motion alignment
+**Papers:** CALVIN, PlayFusion, Diffusion-VLA, RoboHorizon, RT-H, DISCO, OpenVLA
+**Gap:** Grounding language to actions, language-motion hierarchies
+**Opportunity:** Better language-motion alignment with online adaptation
+
+### Theme 6: Hierarchical Approaches (NEW)
+**Papers:** ChainedDiffuser, Hierarchical Diffuser, Subgoal Diffuser, RT-H, EXTRACT, SkillDiffuser
+**Gap:** Most hierarchical methods are either open-loop OR use MPC (not learning-based)
+**Opportunity:** Learning-based closed-loop hierarchical control
+
+### Theme 7: MPC + Learning Hybrid (NEW)
+**Papers:** Subgoal Diffuser, D-MPC, RSS MPC papers
+**Gap:** MPC requires accurate models; learning could replace or augment
+**Opportunity:** World model-based control to replace optimization-based MPC
 
 ---
 
-## RANKING ALL OPPORTUNITIES (After 68 Papers):
+## RANKING ALL OPPORTUNITIES (After 161 Papers):
 
-| Rank | Opportunity | Novelty | Feasibility | Impact | Total | Risk |
-|------|-------------|---------|-------------|--------|-------|------|
-| 🥇 1 | **HiLoop** | 8 | 8 | 9 | 25 | Medium |
-| 🥈 2 | Cross-Embodiment Hierarchical | 8 | 7 | 8 | 23 | Medium |
-| 🥉 3 | Equivariant World Models | 9 | 6 | 8 | 23 | High |
-| 4 | Multi-Stage Contact Prediction | 7 | 6 | 9 | 22 | High |
-| 5 | Foundation Model Online Adapt | 8 | 5 | 9 | 22 | High |
-| 6 | Multimodal Waypoint Prediction | 7 | 8 | 7 | 22 | Low |
-| 7 | Long-Horizon Benchmark | 6 | 9 | 7 | 22 | Low |
-| 8 | Uncertainty-Calibrated Prevention | 7 | 6 | 8 | 21 | Medium |
-| 9 | Human-in-Loop Waypoint | 6 | 8 | 7 | 21 | Low |
-| 10 | Provable Guarantees Hierarchical | 9 | 5 | 7 | 21 | High |
+**⚠️ UPDATED:** HiLoop novelty reduced from 8→7 due to Subgoal Diffuser (March 2024)
+
+| Rank | Opportunity | Novelty | Feasibility | Impact | Total | Risk | Notes |
+|------|-------------|---------|-------------|--------|-------|------|-------|
+| 🥇 1 | **HiLoop** | 7 | 8 | 9 | 24 | Medium | ⚠️ Must differentiate from Subgoal Diffuser! |
+| 🥈 2 | Cross-Embodiment Hierarchical | 8 | 7 | 8 | 23 | Medium | |
+| 🥉 3 | Equivariant World Models | 9 | 6 | 8 | 23 | High | Novel but technically risky |
+| 🥉 3 | Denoising World Models for Manip | 7 | 8 | 8 | 23 | Medium | Inspired by RSS Best Paper |
+| 5 | Multi-Stage Contact Prediction | 7 | 6 | 9 | 22 | High | |
+| 5 | Foundation Model Online Adapt | 8 | 5 | 9 | 22 | High | |
+| 5 | Multimodal Waypoint Prediction | 7 | 8 | 7 | 22 | Low | Could combine with HiLoop |
+| 5 | Long-Horizon Benchmark | 6 | 9 | 7 | 22 | Low | Complementary |
+| 5 | Language Hierarchical + Adaptation | 7 | 7 | 8 | 22 | Medium | Combines RT-H + online adapt |
+| 10 | Uncertainty-Calibrated Prevention | 7 | 6 | 8 | 21 | Medium | |
+| 10 | Human-in-Loop Waypoint | 6 | 8 | 7 | 21 | Low | |
+| 10 | Provable Guarantees Hierarchical | 9 | 5 | 7 | 21 | High | Theory track |
 
 ---
 
 ## COMBINATIONS WORTH EXPLORING:
 
 ### Combination A: HiLoop + Multimodal Waypoints
-Use diffusion for waypoint generation (handles multimodality) + closed-loop adaptation
-**Total Score:** 8 novelty, 8 feasibility, 9 impact = 25
+Use diffusion for waypoint generation (handles multimodality) + world model-based closed-loop adaptation
+**Total Score:** 7 novelty, 8 feasibility, 9 impact = 24
 **Status:** STRONGEST CANDIDATE
+**⚠️ Critical:** Must clearly differentiate from Subgoal Diffuser (MPC vs world model, static vs dynamic refinement)
 
 ### Combination B: HiLoop + Equivariance
 Closed-loop hierarchical with SE(3)-equivariant representations
@@ -325,6 +371,21 @@ Waypoints at contact transitions + closed-loop adaptation
 4. ⏳ Make final decision on research direction
 
 **Current Leader: HiLoop (potentially combined with multimodal waypoints)**
+
+**⚠️ CRITICAL FINDINGS After 161 Papers:**
+1. **Subgoal Diffuser (March 2024)** is the closest competitor - uses diffusion + MPC + closed-loop
+2. **Hierarchical Diffuser (Jan 2024)** does hierarchical diffusion but for offline RL only
+3. **DISCO (June 2024)** does VLM keyframes + diffusion but notes enforcement issues
+4. **RT-H (RSS 2024)** shows language-based hierarchies work well
+5. **DWL (RSS Best Paper Finalist)** shows denoising world models excel for locomotion
+
+**HiLoop Differentiation Strategy:**
+- Emphasize **world model (learning)** vs **MPC (optimization)**
+- Emphasize **online waypoint refinement** vs **static subgoal generation**
+- Emphasize **error-driven replanning** vs **density-based allocation**
+- Focus on **manipulation with object interactions** vs general trajectory following
+
+**Confidence: 70%** (reduced from 75% due to Subgoal Diffuser, but still viable with clear differentiation)
 
 Will reassess after reviewing all 500+ papers.
 

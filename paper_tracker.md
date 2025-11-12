@@ -1,7 +1,7 @@
 # Paper Review Tracker
 
 **Goal:** Review 500+ papers on robotics manipulation, world models, diffusion policies
-**Current Count:** 68 / 500 (13.6%)
+**Current Count:** 161 / 500 (32.2%)
 **Last Updated:** 2025-11-12
 
 ---
@@ -18,18 +18,36 @@
 **Status:** ✅ COMPLETE
 **File:** paper_summaries/batch_002_world_models.md
 
-### Batch 003: ICRA 2024 (Papers 69-150) - IN PROGRESS
-**Source:** ICRA 2024 proceedings, GitHub lists
-**Status:** 🔄 IN PROGRESS
-**Target:** ~80 papers
+### Batch 003: arXiv Sep-Dec 2024 (Papers 69-120)
+**Source:** arXiv cs.RO Sep-Dec 2024
+**Status:** ✅ COMPLETE
+**File:** paper_summaries/batch_003_arxiv_recent_2024.md
+**Papers:** 52
 
-### Batch 004: CoRL 2023-2024 (Papers 151-230)
-**Source:** OpenReview, CoRL proceedings
+### Batch 004: arXiv Jul-Aug 2024 (Papers 121-135)
+**Source:** arXiv cs.RO Jul-Aug 2024
+**Status:** ✅ COMPLETE
+**File:** paper_summaries/batch_004_arxiv_jul_aug_2024.md
+**Papers:** 15
+
+### Batch 005: arXiv Jan-Jun 2024 + RSS 2024 (Papers 136-161)
+**Source:** arXiv cs.RO/cs.LG Jan-Jun 2024, RSS 2024 proceedings
+**Status:** ✅ COMPLETE
+**File:** paper_summaries/batch_005_arxiv_jan_jun_2024.md
+**Papers:** 26
+
+### Batch 006: CoRL 2024 (Papers 162-230)
+**Source:** OpenReview CoRL 2024
 **Status:** ⏳ PENDING
-**Target:** ~80 papers
+**Target:** ~70 papers
 
-### Batch 005: RSS 2023-2024 (Papers 231-300)
-**Source:** RSS proceedings
+### Batch 007: ICRA 2024 (Papers 231-300)
+**Source:** ICRA 2024 proceedings
+**Status:** ⏳ PENDING
+**Target:** ~70 papers
+
+### Batch 008: NeurIPS 2024 Robotics (Papers 301-370)
+**Source:** NeurIPS proceedings (filtered for robotics)
 **Status:** ⏳ PENDING
 **Target:** ~70 papers
 
@@ -57,22 +75,22 @@
 
 ## Count by Category
 
-- **Diffusion Policies:** 35
-- **World Models:** 33
-- **Hierarchical Methods:** 8 (from batches 1-2)
-- **Model-Based RL:** 5 (from batches 1-2)
-- **Long-Horizon Tasks:** 6 (from batches 1-2)
-- **Failure Recovery:** 1 (from batch 1)
-- **Contact-Rich:** 4 (from batches 1-2)
-- **Bimanual:** 4 (from batches 1-2)
-- **Sim-to-Real:** 3 (from batches 1-2)
-- **VLA Models:** 3 (from batches 1-2)
-- **MPC/Control:** 2 (from batches 1-2)
-- **Benchmarks:** 8 (from batch 1)
-- **Foundation Models:** 5 (from batch 2)
-- **Other:** 3
+- **Diffusion Policies:** 48 (batches 1, 3, 5)
+- **World Models:** 38 (batches 2, 3, 5)
+- **Hierarchical Methods:** 18 (includes Subgoal Diffuser, Hierarchical Diffuser, RT-H, EXTRACT, HACMan++)
+- **Model-Based RL:** 8
+- **Long-Horizon Tasks:** 12
+- **Failure Recovery:** 2 (MoE-DP, reactive methods)
+- **Contact-Rich:** 8
+- **Bimanual:** 7 (Mobile ALOHA, RDT-1B, etc.)
+- **Sim-to-Real:** 8 (Humanoid-Gym, DWL, etc.)
+- **VLA Models:** 7 (OpenVLA, RT-H, Diffusion-VLA, etc.)
+- **MPC/Control:** 8 (Subgoal Diffuser, D-MPC, RSS MPC papers)
+- **Benchmarks:** 10
+- **Foundation Models:** 9 (OpenVLA, RDT-1B, Cosmos, GR00T, etc.)
+- **Other:** 18
 
-**TOTAL REVIEWED: 68 / 500 (13.6%)**
+**TOTAL REVIEWED: 161 / 500 (32.2%)**
 
 ---
 
@@ -100,19 +118,30 @@
 
 ## Key Papers for HiLoop Comparison
 
-### Direct Competitors:
-1. **ChainedDiffuser** (CoRL 2023) - Open-loop limitation, 5.1 Hz control
-2. **PIVOT-R** (NeurIPS 2024) - Waypoint-aware world model, no adaptation
-3. **MoE-DP** (Nov 2024) - Failure recovery, no hierarchy
-4. **D-MPC** (Oct 2024) - Diffusion MPC, no hierarchy
-5. **KeyWorld** (2025) - Key frames + interpolation, NOT for control
+### CRITICAL Direct Competitors (⭐⭐⭐):
+1. **⭐ Subgoal Diffuser** (March 2024) - MOST SIMILAR! Diffusion + MPC + closed-loop
+   - Difference: MPC (optimization) vs world model (learning), static subgoals vs dynamic refinement
+2. **⭐ Hierarchical Diffuser** (Jan 2024) - Two-level hierarchical diffusion
+   - Difference: Offline RL, no online adaptation, no world model monitoring
+3. **ChainedDiffuser** (CoRL 2023) - Open-loop limitation, 5.1 Hz control
+   - Difference: Open-loop between waypoints, no error monitoring
+4. **PIVOT-R** (NeurIPS 2024) - Waypoint-aware world model, no adaptation
+   - Difference: No online waypoint refinement
 
-### Related but Different Focus:
-6. **Hierarchical Diffusion Policy** (CVPR 2024) - Contact-based hierarchy
-7. **SkillDiffuser** (CVPR 2024) - Skill abstractions
-8. **3D Diffuser Actor** (CoRL 2024) - 3D representations
-9. **VidMan** (NeurIPS 2024) - Video diffusion for dynamics
-10. **Unified World Models** (RSS 2025) - Video + action diffusion
+### Related with Partial Overlap:
+5. **DISCO** (June 2024) - VLM keyframes + diffusion, notes keyframe enforcement issues
+6. **RT-H** (March 2024, RSS 2024) - Language-based action hierarchies
+7. **MoE-DP** (Nov 2024) - Failure recovery, no hierarchy
+8. **D-MPC** (Oct 2024) - Diffusion MPC, no hierarchy
+9. **DWL** (Aug 2024, RSS Best Paper Finalist) - Denoising world model for locomotion
+
+### Different Focus:
+10. **Hierarchical Diffusion Policy** (CVPR 2024) - Contact-based hierarchy
+11. **SkillDiffuser** (CVPR 2024) - Skill abstractions
+12. **EXTRACT** (CoRL 2024) - Skill extraction from offline data
+13. **3D Diffuser Actor** (CoRL 2024) - 3D representations
+14. **OpenVLA** (June 2024) - 7B VLA beats Diffusion Policy by 20.4%
+15. **Unified World Models** (RSS 2025) - Video + action diffusion
 
 ---
 
@@ -154,11 +183,24 @@
 
 ## Confidence in HiLoop Decision
 
-**After 68 papers:**
+**After 161 papers:**
 - ✅ ChainedDiffuser open-loop limitation confirmed
-- ✅ No existing work combines hierarchy + closed-loop + online waypoint adaptation
+- ⚠️ **CRITICAL FINDING:** Subgoal Diffuser (March 2024) is VERY similar to HiLoop!
+  - Uses diffusion + MPC + closed-loop control
+  - Key difference: MPC (optimization, needs model) vs world model (learning, generalizes)
+  - Key difference: Static subgoals + density adjustment vs dynamic waypoint refinement
+- ✅ Hierarchical Diffuser exists but for offline RL, not online manipulation
+- ✅ DISCO shows VLM keyframes + diffusion but explicitly notes keyframe enforcement issues
+- ✅ RT-H uses language hierarchies, different abstraction than waypoints
+- ✅ DWL shows denoising world models work well (RSS Best Paper Finalist)
 - ✅ Workshop priorities align (dynamic adaptation)
-- ✅ Clear differentiation from all reviewed papers
 
-**Confidence: 75% → maintaining confidence as more papers reviewed**
+**Differentiation Strategy Required:**
+- Position HiLoop as world model-based (learning, generalizable) vs MPC-based (optimization, model-dependent)
+- Emphasize error-driven dynamic replanning vs predetermined density adjustment
+- Highlight online waypoint refinement (adapts waypoints themselves) vs static subgoal following
+
+**Confidence: 75% → 70% (Subgoal Diffuser is a strong competitor, need clear differentiation)**
+
+**Action: Continue review to ensure no other similar work exists, strengthen differentiation**
 
