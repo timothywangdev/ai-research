@@ -1,7 +1,7 @@
 # Paper Review Tracker
 
 **Goal:** Review 500+ papers on robotics manipulation, world models, diffusion policies
-**Current Count:** 161 / 500 (32.2%)
+**Current Count:** 186 / 500 (37.2%)
 **Last Updated:** 2025-11-12
 
 ---
@@ -36,10 +36,11 @@
 **File:** paper_summaries/batch_005_arxiv_jan_jun_2024.md
 **Papers:** 26
 
-### Batch 006: CoRL 2024 (Papers 162-230)
-**Source:** OpenReview CoRL 2024
-**Status:** ⏳ PENDING
-**Target:** ~70 papers
+### Batch 006: CoRL/ICRA/NeurIPS 2024 (Papers 162-186)
+**Source:** CoRL 2024, ICRA 2024, NeurIPS 2024, Recent arXiv
+**Status:** ✅ COMPLETE
+**File:** paper_summaries/batch_006_corl_icra_neurips_2024.md
+**Papers:** 25
 
 ### Batch 007: ICRA 2024 (Papers 231-300)
 **Source:** ICRA 2024 proceedings
