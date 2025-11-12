@@ -1,7 +1,7 @@
 # Paper Review Tracker
 
 **Goal:** Review 500+ papers on robotics manipulation, world models, diffusion policies
-**Current Count:** 336 / 500 (67.2%)
+**Current Count:** 416 / 500 (83.2%)
 **Last Updated:** 2025-11-12
 
 ---
@@ -60,10 +60,11 @@
 **File:** paper_summaries/batch_009_2022_aug_nov.md
 **Papers:** 50
 
-### Batch 007: ICLR 2024 Robotics (Papers 371-410)
-**Source:** ICLR proceedings (filtered)
-**Status:** ⏳ PENDING
-**Target:** ~40 papers
+### Batch 010: 2021-2022 Final + Synthesis (Papers 337-416)
+**Source:** arXiv 2021-2022 + Comprehensive synthesis
+**Status:** ✅ COMPLETE
+**File:** paper_summaries/batch_010_2021_2022_jun_jul_nov_dec.md
+**Papers:** 80
 
 ### Batch 008: arXiv Recent (Papers 411-480)
 **Source:** arXiv cs.RO, cs.LG (robot manipulation)
