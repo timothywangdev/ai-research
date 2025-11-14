@@ -470,6 +470,168 @@ Large Customer (Autonomous Vehicle / Humanoid):
 
 ---
 
+## 🧤 STRATEGIC ENHANCEMENT: Multi-Modal Data Collection (Glove Data)
+
+### The Case for Finger Tracking
+
+**Why finger data matters** (even for simple grippers):
+
+**1. The "GPT Moment" Analogy**:
+- GPT-3 didn't need 175B parameters for Q&A, but scale enabled emergent capabilities
+- **Applied to robotics**: Finger data might enable emergent manipulation understanding
+  - Model learns "what makes a good grasp" abstractly, independent of embodiment
+  - Could solve embodiment transfer problem (currently 0-30% success rates)
+  - Human hand movements encode task-level semantics: intent, force, contact strategies
+
+**2. Dexterous Manipulation Timeline** (2-3 years):
+- **Companies building multi-fingered hands NOW**:
+  - Sanctuary AI Phoenix: 20-DOF hands
+  - Figure AI: 16-DOF hands
+  - Tesla Optimus Gen-2: 11-DOF hands with tactile sensing
+  - Agility Digit: Recently added multi-fingered hands
+- **If dexterous hands become standard**: Glove dataset becomes 10-100× more valuable
+- **First-mover advantage**: Only company with 100K+ hours of human finger data
+
+**3. Data Richness Enables Better Models**:
+- **Research insight**: Models trained on richer inputs learn better representations
+  - Example: ImageNet models trained at higher resolution transfer better
+- **Applied to robotics**:
+  - Train on 27-DOF human hand data (rich signal)
+  - Model learns rich manipulation representations
+  - Fine-tune to robot's gripper → better than training on gripper-only data
+- **Specific advantage**: Model learns grasp semantics (power vs precision vs tripod)
+
+**4. Premium Marketplace Positioning**:
+- **Current robotics data pricing**:
+  - Basic teleoperation: $20-50/hour
+  - High-quality annotated: $100-200/hour
+  - Specialized/dexterous: $500-1000/hour
+- **With glove data**: Enter premium tier ($150-300/hour vs $30/hour basic)
+
+### The On-Demand Task Model (Key Insight)
+
+**NOT**: "Wear sensors all day while you clean"
+**BUT**: "Accept task → Put on gloves → Record 30-min session → Get paid → Remove gloves"
+
+**Why this changes everything**:
+
+1. **Comfort requirements collapse**:
+   - 8-hour wear: Must be imperceptible, any discomfort unbearable
+   - 30-minute wear: People tolerate significant discomfort for short burst
+   - Precedent: VR headsets (500g), motion capture suits, climbing shoes
+
+2. **Hardware costs drop dramatically**:
+   ```
+   Basic cotton work glove:      $3
+   12× cheap flex sensors:       $36 ($3 each)
+   Simple PCB + ESP32:           $10
+   150mAh battery (1hr):         $3
+   Wiring:                       $3
+   ────────────────────────────────
+   Total BOM:                    $55
+   Retail price:                 $80 (with margin)
+   ```
+   - **50% cheaper** than all-day wear design ($163)
+   - Lower quality sensors acceptable (100 hours vs 1000 hours durability)
+   - Minimal battery (1 hour vs 8 hours)
+
+3. **User acquisition much easier**:
+   - Low commitment: "Make $2-3 for 30 minutes of cleaning"
+   - Gig economy model people understand
+   - Try-and-see flexibility vs daily commitment
+
+4. **Better data quality**:
+   - **Task-based**: Clear start/end, automatic labeling
+   - **Deliberate demonstrations**: People perform task correctly when recording
+   - **vs Passive collection**: Wasted footage, unclear boundaries, hard to label
+
+### Two-Tier Business Model
+
+**Tier 1: Camera-Only** (Volume Play)
+- Pay users: $2/hour
+- Sell data: $30/hour
+- Target: 10,000 users
+- Use case: Startups with simple grippers
+
+**Tier 2: Glove Data** (Premium Play)
+- Pay users: $4/hour (premium for wearing gloves)
+- Sell data: $150/hour (5× premium)
+- Target: 1,000 users
+- Use case: Humanoid companies, research labs, dexterous manipulation
+
+**Economics** (at scale):
+```
+Tier 2 Session Economics:
+- User payment: $2 for 30-min session
+- Hardware amortization: $0.80 ($80 gloves / 100 sessions)
+- Processing: $0.20
+- Total cost: $3/session
+- Sell at: $30-50/session
+- Gross margin: 90%+
+
+Annual (10,000 users × 2 sessions/month):
+- 240,000 sessions/year
+- Revenue: $30/session × 120K sold = $3.6M
+- Costs: $3/session × 120K = $360K
+- Profit: $3.24M (90% margin)
+```
+
+### Implementation Roadmap
+
+**Week 1-2: Ultra-Minimal Validation** ($200)
+- Buy off-the-shelf: 5 work gloves + 50 flex sensors from AliExpress
+- DIY prototype: Solder sensors onto gloves
+- Test: Pay 5 friends $5 each for 30-min cleaning task
+- Success criteria: 4/5 complete without quitting, usable finger tracking data
+
+**Month 1-2: Local Pilot** ($5K)
+- Build 50 glove pairs ($3K)
+- Recruit 50 users in Bangalore
+- Launch task marketplace: "Clean kitchen", "Fold laundry" ($1.50-3/task)
+- Target: 200 sessions, 100+ hours glove data
+- Metrics: Completion rate >60%, retention >40%
+
+**Month 3-6: Quality Hardware** ($50-70K)
+- Manufacture 1,000 professional pairs
+- Options: Chinese contract manufacturer ($40-60/pair) or in-house assembly line
+- Target: $55 BOM + $5 labor = $60/unit
+
+**Month 6-12: Geographic Expansion** ($200K)
+- Roll out to 10,000 users across India, Brazil, Philippines, Indonesia
+- Target: 20,000-40,000 sessions/month
+- Two-tier pricing launches
+
+### Strategic Validation Before Scaling
+
+**Critical experiment** (before manufacturing 1,000 gloves):
+
+1. Collect two datasets (100 hours each):
+   - Camera-only (MediaPipe hand tracking)
+   - Camera + crude gloves (flex sensors)
+
+2. Partner with robotics lab to test retargeting:
+   - Train policies on both datasets
+   - Measure real robot success rates on 10 tasks
+
+3. **Decision rule**:
+   - <10% improvement: Stick with camera-only
+   - 10-20% improvement: Gloves as premium tier (optional)
+   - >20% improvement: Gloves mandatory for all users
+
+**The Moat**:
+- **Short-term** (1-2 years): Only dataset with large-scale finger tracking, 5× premium pricing
+- **Medium-term** (2-4 years): When dexterous robots mainstream, you're default data source
+- **Long-term** (5+ years): Foundation model trained on your data = industry standard
+
+**Risk Assessment**:
+- **Betting ~$300K** on hypothesis that finger data improves models enough for 3-5× premium pricing
+- **If wrong**: Wasted investment, user friction, less total data collected
+- **If right**: $100M+ business, decade head-start, defensible moat
+
+**Recommendation**: Validate technically first with crude prototypes before scaling manufacturing.
+
+---
+
 ## 🚀 GO-TO-MARKET STRATEGY
 
 ### Phase 1: Niche Down (Months 0-12)
